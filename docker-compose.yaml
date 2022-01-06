@@ -1,0 +1,41 @@
+version: "3.9"
+
+networks:
+  atomic_service:
+    name: ${NETWORK_NAME:-atomic_service}
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${NETWORK_IPV4_SUBNET:-172.110.0.0/24}
+          gateway: ${NETWORK_IPV4:-172.110.0.1}
+    driver_opts:
+      com.docker.network.bridge.name: ${NETWORK_BRIDGE_NAME:-atomic_service}
+
+services:
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+    restart: always
+    networks:
+      atomic_service:
+        ipv4_address: ${NGINX_IPV4:-172.110.0.2}
+
+  php:
+    build: ./php
+    volumes:
+      - ./src:/var/www/html
+      - ./php/udocker:/home/udocker
+      - ./php/conf.d:/usr/local/etc/php/conf.d
+    restart: always
+    environment:
+      - PHP_IPV4=${PHP_IPV4:-172.110.0.3}
+      - PHP_OPCACHE_JIT=${PHP_OPCACHE_JIT:-on}
+      - PHP_XDEBUG_MODE=${PHP_XDEBUG_MODE:-off}
+    user: ${CURRENT_UID:-root}
+    networks:
+      atomic_service:
+        ipv4_address: ${PHP_IPV4:-172.110.0.3}
