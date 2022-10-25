@@ -5,8 +5,8 @@ The term **LEP** is an acronym that represents the configuration of a **L**inux 
 
 Via Composer
 ```bash
-$ git clone https://github.com/alireaza/lep.git atomic_service
-$ cd atomic_service
+$ git clone https://github.com/alireaza/lep.git alireaza
+$ cd alireaza
 $ docker-compose up --detach
 ```
 

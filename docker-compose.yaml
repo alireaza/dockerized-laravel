@@ -1,8 +1,8 @@
 version: "3.9"
 
 networks:
-  atomic_service:
-    name: ${NETWORK_NAME:-atomic_service}
+  alireaza:
+    name: ${NETWORK_NAME:-alireaza}
     driver: bridge
     ipam:
       driver: default
@@ -10,7 +10,7 @@ networks:
         - subnet: ${NETWORK_IPV4_SUBNET:-172.110.0.0/24}
           gateway: ${NETWORK_IPV4:-172.110.0.1}
     driver_opts:
-      com.docker.network.bridge.name: ${NETWORK_BRIDGE_NAME:-atomic_service}
+      com.docker.network.bridge.name: ${NETWORK_BRIDGE_NAME:-alireaza}
 
 services:
   nginx:
@@ -21,7 +21,7 @@ services:
       - ./nginx/log:/var/log/nginx
     restart: always
     networks:
-      atomic_service:
+      alireaza:
         ipv4_address: ${NGINX_IPV4:-172.110.0.2}
 
   php:
@@ -37,5 +37,5 @@ services:
       - PHP_XDEBUG_MODE=${PHP_XDEBUG_MODE:-off}
     user: ${CURRENT_UID:-root}
     networks:
-      atomic_service:
+      alireaza:
         ipv4_address: ${PHP_IPV4:-172.110.0.3}

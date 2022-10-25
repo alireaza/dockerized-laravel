@@ -1,6 +1,6 @@
-FROM php:8.1.1-fpm-alpine3.15
+FROM php:8.1.11-fpm-alpine3.16
 
-COPY --from=composer:2.2.3 /usr/bin/composer /usr/bin/composer
+RUN pear config-set http_proxy ${http_proxy}
 
 RUN apk --no-cache --virtual .opcache add --update \
 && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
@@ -8,7 +8,7 @@ RUN apk --no-cache --virtual .opcache add --update \
 && apk del .opcache
 
 RUN apk --no-cache --virtual .xdebug add --update autoconf build-base \
-&& pecl install xdebug-3.1.2 && docker-php-ext-enable xdebug \
+&& pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug \
 && apk del .xdebug
 
 RUN apk --no-cache --virtual .dbgpProxy add --update wget \
@@ -16,6 +16,8 @@ RUN apk --no-cache --virtual .dbgpProxy add --update wget \
 && wget -O /usr/bin/dbgpProxy https://xdebug.org/files/binaries/dbgpProxy \
 && chmod 755 /usr/bin/dbgpProxy \
 && apk del .dbgpProxy
+
+COPY --from=composer:2.4.3 /usr/bin/composer /usr/bin/composer
 
 ARG UNAME=udocker
 ARG UID=1000
