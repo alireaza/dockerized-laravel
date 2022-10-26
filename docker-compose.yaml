@@ -19,7 +19,7 @@ services:
       - ./src:/var/www/html
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/log:/var/log/nginx
-    restart: always
+    restart: ${NGINX_RESTART_POLICY:-always}
     networks:
       alireaza:
         ipv4_address: ${NGINX_IPV4:-172.110.0.2}
@@ -30,9 +30,8 @@ services:
       - ./src:/var/www/html
       - ./php/udocker:/home/udocker
       - ./php/conf.d:/usr/local/etc/php/conf.d
-    restart: always
+    restart: ${PHP_RESTART_POLICY:-always}
     environment:
-      - PHP_IPV4=${PHP_IPV4:-172.110.0.3}
       - PHP_OPCACHE_JIT=${PHP_OPCACHE_JIT:-on}
       - PHP_XDEBUG_MODE=${PHP_XDEBUG_MODE:-off}
     user: ${CURRENT_UID:-root}
