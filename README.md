@@ -7,7 +7,7 @@ Via Composer
 ```bash
 $ git clone https://github.com/alireaza/lep.git alireaza
 $ cd alireaza
-$ docker-compose up --detach
+$ CURRENT_UID=$(id -u):$(id -g) docker-compose up --detach --build
 ```
 
 
@@ -23,7 +23,7 @@ $ CURRENT_UID=$(id -u):$(id -g) docker-compose up --detach --build
 $ CURRENT_UID=$(id -u):$(id -g) docker-compose down
 ```
 
-#### Fix permission services
+#### Fix services permissions
 ```bash
 $ sudo chown -R $(id -u):$(id -g) {./nginx/,./php/,./src/}
 ```
