@@ -1,17 +1,13 @@
-# Linux, Nginx, PHP
-The term **LEP** is an acronym that represents the configuration of a **L**inux operating system with an nginx (pronounced **E**ngine-X, hence the E in the acronym) web server and dynamic content processed by **P**HP.
+# Dockerized Laravel based on [LEP](https://github.com/alireaza/lep)
+Laravel application in a Docker container
 
 ## Install
 
 Via Composer
 ```bash
-$ git clone https://github.com/alireaza/lep.git alireaza
-$ cd alireaza
-<<<<<<< HEAD
+$ git clone https://github.com/alireaza/dockerized-laravel.git laravel
+$ cd laravel
 $ CURRENT_UID=$(id -u):$(id -g) docker-compose up --detach --build
-=======
-$ docker-compose up --detach
->>>>>>> Clone https://github.com/alireaza/lep.git
 ```
 
 
@@ -60,6 +56,16 @@ $ docker-compose exec --user $(id -u):$(id -g) php composer -h
 #### Run dbgpProxy
 ```bash
 $ docker-compose exec php /usr/bin/dbgpProxy --server 0.0.0.0:9003 --client 0.0.0.0:9001
+```
+
+#### Laravel artisan CLI:
+```bash
+docker-compose exec --user $(id -u):$(id -g) php php artisan
+```
+
+#### Fix Laravel storage permission:
+```bash
+docker-compose exec --user root php chown -R www-data:www-data /var/www/html/storage
 ```
 
 ## License
