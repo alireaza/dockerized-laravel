@@ -7,7 +7,11 @@ Via Composer
 ```bash
 $ git clone https://github.com/alireaza/lep.git alireaza
 $ cd alireaza
+<<<<<<< HEAD
 $ CURRENT_UID=$(id -u):$(id -g) docker-compose up --detach --build
+=======
+$ docker-compose up --detach
+>>>>>>> Clone https://github.com/alireaza/lep.git
 ```
 
 
