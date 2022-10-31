@@ -60,12 +60,12 @@ $ docker-compose exec php /usr/bin/dbgpProxy --server 0.0.0.0:9003 --client 0.0.
 
 #### Laravel artisan CLI:
 ```bash
-docker-compose exec --user $(id -u):$(id -g) php php artisan
+$ docker-compose exec --user $(id -u):$(id -g) php php artisan
 ```
 
 #### Fix Laravel storage permission:
 ```bash
-docker-compose exec --user root php chown -R www-data:www-data /var/www/html/storage
+$ docker-compose exec --user root php chown -R www-data:www-data /var/www/html/storage
 ```
 
 ## License
