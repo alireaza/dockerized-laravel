@@ -1,4 +1,4 @@
-FROM php:8.1.12-fpm-alpine3.16
+FROM php:8.2.0-fpm-alpine3.17
 
 RUN if [[ -n "$http_proxy" ]] ; then pear config-set http_proxy ${http_proxy}; fi
 
@@ -7,8 +7,8 @@ RUN apk --no-cache --virtual .opcache add --update \
 && docker-php-ext-install -j${NPROC} opcache \
 && apk del .opcache
 
-RUN apk --no-cache --virtual .xdebug add --update autoconf build-base \
-&& pecl install xdebug-3.1.6 && docker-php-ext-enable xdebug \
+RUN apk --no-cache --virtual .xdebug add --update autoconf build-base linux-headers \
+&& pecl install xdebug-3.2.0 && docker-php-ext-enable xdebug \
 && apk del .xdebug
 
 RUN apk --no-cache --virtual .dbgpProxy add --update wget \
