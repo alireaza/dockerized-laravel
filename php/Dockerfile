@@ -7,6 +7,10 @@ RUN apk --no-cache --virtual .opcache add --update \
 && docker-php-ext-install -j${NPROC} opcache \
 && apk del .opcache
 
+RUN apk --no-cache --virtual .fcgi add --update \
+&& apk --no-cache add fcgi \
+&& apk del .fcgi
+
 RUN apk --no-cache --virtual .xdebug add --update autoconf build-base linux-headers \
 && pecl install xdebug-3.2.0 && docker-php-ext-enable xdebug \
 && apk del .xdebug
@@ -18,6 +22,8 @@ RUN apk --no-cache --virtual .dbgpProxy add --update wget \
 && apk del .dbgpProxy
 
 COPY --from=composer:2.4.4 /usr/bin/composer /usr/bin/composer
+
+HEALTHCHECK --start-period=5s --timeout=5s --interval=5s --retries=5 CMD cgi-fcgi -bind -connect 127.0.0.1:9000 | grep "X-Powered-By: PHP" || exit -1
 
 ARG UNAME=udocker
 ARG UID=1000
