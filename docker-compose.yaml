@@ -28,8 +28,8 @@ services:
     build: ./php
     volumes:
       - ./src:/var/www/html
-      - ./php/udocker:/home/udocker
       - ./php/conf.d:/usr/local/etc/php/conf.d
+      - ./php/udocker:/home/udocker
     restart: ${PHP_RESTART_POLICY:-always}
     environment:
       - PHP_OPCACHE_JIT=${PHP_OPCACHE_JIT:-on}
