@@ -23,6 +23,9 @@ services:
     networks:
       alireaza:
         ipv4_address: ${NGINX_IPV4:-172.110.0.2}
+    depends_on:
+      php:
+        condition: service_healthy
 
   php:
     build: ./php
