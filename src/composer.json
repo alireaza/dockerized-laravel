@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^9.47",
+        "laravel/framework": "^9.48",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"
     },
@@ -60,6 +60,6 @@
             "pestphp/pest-plugin": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
