@@ -1,1 +1,1 @@
-FROM alireaza/php-fpm:8.2.0
+FROM alireaza/php-fpm:8.2.3
